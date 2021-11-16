@@ -54,8 +54,8 @@ public class FitnessExampleTests {
 
     @ParameterizedTest
     @MethodSource(value = "parameters")
-    public void testableHtml(Class<?> fitnessExampleClass, Boolean includeSuiteSetup) throws Exception {
-        String testableHtml = ((Fitness)fitnessExampleClass.newInstance()).testableHtml(pageData, includeSuiteSetup);
+    public void testableHtml(Class<? extends Fitness> fitnessExampleClass, Boolean includeSuiteSetup) throws Exception {
+        String testableHtml = fitnessExampleClass.newInstance().testableHtml(pageData, includeSuiteSetup);
 //        System.out.printf("testableHtml=[%s]\n", testableHtml);
 
         setUp();

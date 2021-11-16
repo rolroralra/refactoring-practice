@@ -59,8 +59,8 @@ public class FitnessExample1 implements Fitness {
         crawler(wikiPage, buffer, tearDownFullPath, INCLUDE_TEARDOWN);
     }
 
-    private void crawlerSetup(WikiPage wikiPage, StringBuffer buffer, WikiPage wikiPageFullPath) throws Exception {
-        crawler(wikiPage, buffer, wikiPageFullPath, INCLUDE_SETUP);
+    private void crawlerSetup(WikiPage wikiPage, StringBuffer buffer, WikiPage setUpFullPath) throws Exception {
+        crawler(wikiPage, buffer, setUpFullPath, INCLUDE_SETUP);
     }
 
     private void crawler(WikiPage wikiPage, StringBuffer buffer, WikiPage wikiPageFullPath, String description) throws Exception {

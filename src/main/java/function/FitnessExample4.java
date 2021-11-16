@@ -5,10 +5,6 @@ import fitnesse.wiki.*;
 
 public class FitnessExample4 implements Fitness {
     public String testableHtml(PageData pageData, boolean includeSuiteSetup) throws Exception {
-        return testableHtml(pageData);
-    }
-
-    public String testableHtml(PageData pageData) throws Exception {
         String pageContent = pageData.getContent();
         if (!isTestPage(pageData)) {
             return pageContent;
@@ -17,19 +13,23 @@ public class FitnessExample4 implements Fitness {
         WikiPage wikiPage = pageData.getWikiPage();
         StringBuffer buffer = new StringBuffer();
 
-        addTestAttribute(wikiPage, buffer, SuiteResponder.SUITE_SETUP_NAME,
-                TestableHTMLConstant.INCLUDE_SETUP);
+        if (includeSuiteSetup) {
+            addTestAttribute(wikiPage, buffer, SuiteResponder.SUITE_SETUP_NAME,
+                    TestableHTMLConstant.INCLUDE_SETUP);
+        }
 
         addTestAttribute(wikiPage, buffer, TestableHTMLConstant.SETUP,
-                TestableHTMLConstant.INCLUDE_SETUP);
+                    TestableHTMLConstant.INCLUDE_SETUP);
 
         buffer.append(pageContent);
 
         addTestAttribute(wikiPage, buffer, TestableHTMLConstant.TEARDOWN,
-                TestableHTMLConstant.INCLUDE_TEARDOWN);
+                    TestableHTMLConstant.INCLUDE_TEARDOWN);
 
-        addTestAttribute(wikiPage, buffer, SuiteResponder.SUITE_TEARDOWN_NAME,
-                TestableHTMLConstant.INCLUDE_TEARDOWN);
+        if (includeSuiteSetup) {
+            addTestAttribute(wikiPage, buffer, SuiteResponder.SUITE_TEARDOWN_NAME,
+                    TestableHTMLConstant.INCLUDE_TEARDOWN);
+        }
 
         PageData returnPageData = new PageData(pageData);
         returnPageData.setContent(buffer.toString());
