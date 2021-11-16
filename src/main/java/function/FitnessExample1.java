@@ -1,6 +1,5 @@
 package function;
 
-import com.sun.istack.internal.NotNull;
 import fitnesse.responders.run.SuiteResponder;
 import fitnesse.wiki.*;
 

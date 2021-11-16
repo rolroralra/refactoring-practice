@@ -8,24 +8,25 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
-public class FitnessExample1Test {
+public class FitnessExampleTests {
     private PageData pageData;
     private PageCrawler crawler;
     private WikiPage root;
     private WikiPage testPage;
 
     private static Collection<Object[]> parameters() {
-        return Arrays.asList(new Object[][] {
-                {FitnessExample1.class, true},
-                {FitnessExample1.class, false},
-                {FitnessExample2.class, true},
-                {FitnessExample2.class, false},
-                {FitnessExample3.class, true},
-                {FitnessExample3.class, false},
-                {FitnessExample4.class, true},
-                {FitnessExample4.class, false},
-        });
+        return Arrays.stream(new Object[]{
+                FitnessExample1.class,
+                FitnessExample2.class,
+                FitnessExample3.class,
+                FitnessExample4.class,
+                FitnessExample5.class,
+                FitnessExample6.class,
+                FitnessExample7.class,
+                FitnessExample8.class,
+        }).flatMap(clazz -> Arrays.stream(new Object[][]{{clazz, true}, {clazz, false}})).collect(Collectors.toList());
     }
 
     @BeforeEach
@@ -58,7 +59,7 @@ public class FitnessExample1Test {
 //        System.out.printf("testableHtml=[%s]\n", testableHtml);
 
         setUp();
-        String originalTestableHtml = new FitnessExample().testableHtml(pageData, includeSuiteSetup);
+        String originalTestableHtml = new FitnessExample5().testableHtml(pageData, includeSuiteSetup);
 
         Assertions.assertThat(removeMagicNumber(testableHtml)).isEqualTo(removeMagicNumber(originalTestableHtml));
 //        Assertions.assertEquals(removeMagicNumber(originalTestableHtml), removeMagicNumber(testableHtml));
