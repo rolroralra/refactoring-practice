@@ -15,9 +15,25 @@ import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public class ParameterizedTests {
-    private String arg;
+    private final String arg;
     private static HtmlTagValidator htmlTagValidator;
-    private Boolean expectedValidation;
+    private final Boolean expectedValidation;
+
+    static class HtmlTagValidator{
+        private Pattern pattern;
+        private Matcher matcher;
+
+        private static final String HTML_TAG_FORMAT_PATTERN = "<(\"[^\"]*\"|'[^']*'|[^'\">])*>";
+
+        public HtmlTagValidator(){
+            pattern = Pattern.compile(HTML_TAG_FORMAT_PATTERN);
+        }
+
+        public boolean validate(final String tag){
+            matcher = pattern.matcher(tag);
+            return matcher.matches();
+        }
+    }
 
     public ParameterizedTests(String str, Boolean expectedValidation) {
         this.arg = str;
@@ -55,24 +71,6 @@ public class ParameterizedTests {
 }
 
 
-class HtmlTagValidator{
 
-    private Pattern pattern;
-    private Matcher matcher;
-
-    private static final String HTML_TAG_FORMAT_PATTERN = "<(\"[^\"]*\"|'[^']*'|[^'\">])*>";
-
-    public HtmlTagValidator(){
-        pattern = Pattern.compile(HTML_TAG_FORMAT_PATTERN);
-    }
-
-
-    public boolean validate(final String tag){
-
-        matcher = pattern.matcher(tag);
-        return matcher.matches();
-
-    }
-}
 
 
